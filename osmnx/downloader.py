@@ -761,10 +761,10 @@ def overpass_request(data, pause=None, error_pause=60):
 
     else:
         # if this URL is not already in the cache, pause, then request it
-        if pause is None:
-            this_pause = _get_pause(base_endpoint)
-        utils.log(f"Pausing {this_pause} seconds before making HTTP POST request")
-        time.sleep(this_pause)
+        # if pause is None:
+        #     this_pause = _get_pause(base_endpoint)
+        # utils.log(f"Pausing {this_pause} seconds before making HTTP POST request")
+        # time.sleep(this_pause)
 
         # transmit the HTTP POST request
         utils.log(f"Post {prepared_url} with timeout={settings.timeout}")
@@ -772,6 +772,7 @@ def overpass_request(data, pause=None, error_pause=60):
         response = requests.post(
             url, data=data, timeout=settings.timeout, headers=headers, **settings.requests_kwargs
         )
+        response.encoding = 'utf-8'
         sc = response.status_code
 
         # log the response size and domain
